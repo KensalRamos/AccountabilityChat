@@ -7,7 +7,7 @@ A full-stack Android application.
 
 <b>Stacks:</b>
 
-- <bDatabase Stack:</b> SQL database managed using PHPMyAdmin Primarily 3 PHP scripts used. 1) Conn.php - Established connection to the database. 2) Register.php - Handles user registration and writing to database. 3) Login.php - Handles user login and reading from database.
+- <b>Database Stack:</b> SQL database managed using PHPMyAdmin Primarily 3 PHP scripts used. 1) Conn.php - Established connection to the database. 2) Register.php - Handles user registration and writing to database. 3) Login.php - Handles user login and reading from database.
 
 - <b>Internal Structure:</b> Organized object-oriented programming in Java. Consistent programming conventions.
 

@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">AccountabilityChat</string>
+
+    // Log-In Activity
+    <string name="app_title">Accountability Chat</string>
+    <string name="log_in_button">Log In</string>
+    <string name="register_button">Register</string>
+    <string name="created_by">Created by Kensal Ramos</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+
+    // Register Activity
+    <string name="register_title">Registration</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="your_account_title">Your Account</string>
+    <string name="add_user">Add User</string>
+
+    // Main Activity
+
+</resources>

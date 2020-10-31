@@ -18,4 +18,10 @@
 
     // Main Activity
 
+
+    // Add User Activity
+    <string name="add_user_title">Add User</string>
+    <string name="add_username_desc">Who do you want to chat with?</string>
+    <string name="send_welcome_msg">Send the first message</string>
+    <string name="send_welcome_msg_hint">Message</string>
 </resources>

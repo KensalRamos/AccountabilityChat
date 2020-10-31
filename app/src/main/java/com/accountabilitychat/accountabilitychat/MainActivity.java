@@ -1,5 +1,6 @@
 package com.accountabilitychat.accountabilitychat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -26,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
      * They may message usernames in their contacts.
      */
     public void ToAddUserActivity(View view) {
+
+        Intent intent = new Intent(this, AddUserActivity.class);
+        startActivity(intent);
 
     }
 

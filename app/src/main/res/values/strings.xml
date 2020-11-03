@@ -24,4 +24,11 @@
     <string name="add_username_desc">Who do you want to chat with?</string>
     <string name="send_welcome_msg">Send the first message</string>
     <string name="send_welcome_msg_hint">Message</string>
+
+    // Your Account Activity
+    <string name="first_name_title">First Name</string>
+    <string name="last_name_title">Last Name</string>
+    <string name="username_title">Username</string>
+    <string name="password_title">Password</string>
+
 </resources>

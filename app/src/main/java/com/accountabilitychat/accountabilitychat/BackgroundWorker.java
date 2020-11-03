@@ -22,7 +22,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
 
     Context context;
     AlertDialog alertDialog;
-    Boolean logInAuth;
+    Boolean logInAuth = false;
 
     BackgroundWorker(Context contextIn) {
         context = contextIn;

@@ -28,6 +28,9 @@
         <activity android:name=".AddUserActivity">
         </activity>
 
+        <activity android:name=".YourAccountActivity">
+        </activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

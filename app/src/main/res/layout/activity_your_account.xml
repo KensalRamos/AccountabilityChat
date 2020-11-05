@@ -13,7 +13,7 @@
         android:layout_marginTop="100dp"
         android:background="@color/colorAccent"
         android:fontFamily="@font/open_sans_light"
-        android:onClick="onReg"
+        android:onClick="toHome"
         android:text="@string/return_btn_title"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"

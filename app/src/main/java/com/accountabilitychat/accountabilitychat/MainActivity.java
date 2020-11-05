@@ -19,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
      */
     public void ToYourAccountActivity(View view) {
 
+        Intent intent = new Intent(this, YourAccountActivity.class);
+        startActivity(intent);
+
     }
 
     /*

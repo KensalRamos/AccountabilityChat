@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        searchDatabase();
     }
 
     /*
@@ -33,6 +34,21 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, AddUserActivity.class);
         startActivity(intent);
+
+    }
+
+    private void searchDatabase() {
+
+        String type = "search";
+        String username = BackgroundWorker.loggedUser;
+
+        System.out.println("LOGGED USERR IS: _________________________" + username);
+        //System.out.println("searchResult IS: _________________________" + BackgroundWorker.searchResult);
+
+        // Search for database information
+        BackgroundWorker backgroundWorker = new BackgroundWorker(this);
+        //System.out.println("searchResult IS: _________________________2" + BackgroundWorker.searchResult);
+        backgroundWorker.execute(type, username);
 
     }
 

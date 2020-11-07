@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class YourAccountActivity extends AppCompatActivity {
 
+    static String searchResult;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,24 +33,14 @@ public class YourAccountActivity extends AppCompatActivity {
         TextView lNameText =(TextView) findViewById(R.id.lastNameTitle);
         TextView passwordText =(TextView) findViewById(R.id.passwordTitle);
 
-        // Database variables
-        String type = "search";
-        String username = BackgroundWorker.loggedUser;
-
-        // Search for database information
-        BackgroundWorker backgroundWorker = new BackgroundWorker(this);
-        backgroundWorker.execute(type, username);
-
-
-        String[] searchStr = BackgroundWorker.searchResult.split(" ");
-
-
+        String[] searchStr = searchResult.split(" ");
 
         // Alter TextView strings accordingly
-        usernameText.setText(BackgroundWorker.searchResult);
-        /*usernameText.setText(getString(R.string.last_name_title, searchStr[2]));
+        fNameText.setText(getString(R.string.first_name_title, searchStr[1]));
+        lNameText.setText(getString(R.string.last_name_title, searchStr[2]));
         usernameText.setText(getString(R.string.username_title, searchStr[3]));
-        usernameText.setText(getString(R.string.password_title, searchStr[4]));*/
+        passwordText.setText(getString(R.string.password_title, searchStr[4]));
+        //System.out.println("searchResult IS: _________________________" + searchResult);
 
     }
 

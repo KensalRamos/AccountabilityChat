@@ -22,7 +22,6 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
     AlertDialog alertDialog;
     Boolean logInAuth = false;
     static String loggedUser;
-    static String searchResult;
 
     BackgroundWorker(Context contextIn) {
         context = contextIn;
@@ -83,8 +82,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
             }
 
-        }
-        else if (type.equals("register")) {
+        } else if (type.equals("register")) {
 
             String firstName = params[1];
             String lastName = params[2];
@@ -128,10 +126,11 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
             }
 
-        }
-        else if (type.equals("search")) {
+        } else if (type.equals("search")) {
 
+            YourAccountActivity.searchResult = "";
             String username = params[1];
+            System.out.println("Search initiated!!!!!!!");
 
             try {
                 URL url = new URL(search_url);
@@ -157,6 +156,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
                 while ((line = bufferedReader.readLine()) != null)
                     result += line;
 
+                YourAccountActivity.searchResult = result;
                 bufferedReader.close();
                 inputStream.close();
                 httpURLConnection.disconnect();
@@ -184,9 +184,6 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
         if (result.equals("Login unsuccessful."))
             alertDialog.show();
 
-        if (result.startsWith("search"))
-            searchResult = result;
-
         if (logInAuth) {
             Intent intent = new Intent(context, MainActivity.class);
             context.startActivity(intent);
@@ -199,4 +196,5 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
     protected void onProgressUpdate(Void... values) {
         super.onProgressUpdate(values);
     }
+
 }

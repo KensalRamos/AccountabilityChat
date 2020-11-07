@@ -3,9 +3,7 @@ package com.accountabilitychat.accountabilitychat;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.icu.util.Output;
 import android.os.AsyncTask;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -23,6 +21,8 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
     Context context;
     AlertDialog alertDialog;
     Boolean logInAuth = false;
+    static String loggedUser;
+    static String searchResult;
 
     BackgroundWorker(Context contextIn) {
         context = contextIn;
@@ -34,9 +34,11 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
         String type = params[0];
         String login_url = "http://kensalramos.com/login.php";
         String register_url = "http://kensalramos.com/register.php";
+        String search_url = "http://kensalramos.com/search.php";
+
 
         if (type.equals("login")) {
-
+            loggedUser = "";
             String username = params[1];
             String password = params[2];
             logInAuth = false;
@@ -66,8 +68,10 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
                 while ((line = bufferedReader.readLine()) != null)
                     result += line;
 
-                if (result.equals("Login Success."))
+                if (result.equals("Login successful.")) {
                     logInAuth = true;
+                    loggedUser = username;
+                }
 
                 bufferedReader.close();
                 inputStream.close();
@@ -125,7 +129,45 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
             }
 
         }
+        else if (type.equals("search")) {
 
+            String username = params[1];
+
+            try {
+                URL url = new URL(search_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String postData = URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8");
+
+                bufferedWriter.write(postData);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                String result = "";
+                String line = "";
+
+                while ((line = bufferedReader.readLine()) != null)
+                    result += line;
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+                return result;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         return null;
     }
 
@@ -139,7 +181,11 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         alertDialog.setMessage(result);
-        alertDialog.show();
+        if (result.equals("Login unsuccessful."))
+            alertDialog.show();
+
+        if (result.startsWith("search"))
+            searchResult = result;
 
         if (logInAuth) {
             Intent intent = new Intent(context, MainActivity.class);

@@ -31,7 +31,7 @@
     <string name="username_title">Username: %1$s</string>
     <string name="password_title">Password: %1$s</string>
     <string name="edit_btn_title">Edit</string>
-    <string name="return_btn_title">Return Home</string>
+    <string name="return_btn_title">Update Information</string>
     <string name="update_btn_title">Update</string>
 
 </resources>

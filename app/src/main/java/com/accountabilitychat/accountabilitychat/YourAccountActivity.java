@@ -6,14 +6,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class YourAccountActivity extends AppCompatActivity {
 
     static String searchResult;
-    String type = "edit";
-    BackgroundWorker backgroundWorker;
     String[] searchStr;
+    AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +30,10 @@ public class YourAccountActivity extends AppCompatActivity {
         TextView lNameText =(TextView) findViewById(R.id.lastNameTitle);
         TextView passwordText =(TextView) findViewById(R.id.passwordTitle);
 
+        EditText fNameEdit = (EditText) findViewById(R.id.editFNameInput);
+        EditText lNameEdit = (EditText) findViewById(R.id.editLNameInput);
+        EditText passwordEdit = (EditText) findViewById(R.id.editPasswordInput);
+
         searchStr = searchResult.split(" ");
 
         // Alter TextView strings accordingly
@@ -37,6 +41,10 @@ public class YourAccountActivity extends AppCompatActivity {
         lNameText.setText(getString(R.string.last_name_title, searchStr[2]));
         usernameText.setText(getString(R.string.username_title, searchStr[3]));
         passwordText.setText(getString(R.string.password_title, searchStr[4]));
+
+        fNameEdit.setText(searchStr[1]);
+        lNameEdit.setText(searchStr[2]);
+        passwordEdit.setText(searchStr[4]);
 
     }
 
@@ -79,11 +87,41 @@ public class YourAccountActivity extends AppCompatActivity {
 
     public void updateBtnOnClick(View view) {
 
+        // Init
+        alertDialog = new android.app.AlertDialog.Builder(this).create();
+        alertDialog.setTitle("Update Error");
+        EditText fNameEdit = (EditText) findViewById(R.id.editFNameInput);
+        EditText lNameEdit = (EditText) findViewById(R.id.editLNameInput);
+        EditText passwordEdit = (EditText) findViewById(R.id.editPasswordInput);
+        String type = "update";
+        String fName = fNameEdit.getText().toString();
+        String lName = lNameEdit.getText().toString();
+        String username = searchStr[3];
+        String password = passwordEdit.getText().toString();
 
-        // Go Home
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        // Check if changes are valid
+        if (fName.isEmpty() || lName.isEmpty() || password.isEmpty()) {
+            alertDialog.setMessage("Please fill all fields.");
+            alertDialog.show();
+        }
+        else if ((!password.matches(".*\\d.*") || !password.matches(".*[a-zA-Z].*")) && password.length() < 8) {
+            alertDialog.setMessage("Password must include numerical and alphabetical values and must be at least 8 characters long.");
+            alertDialog.show();
+        }
+        else {
+            // Check if changes have been made.
+            if (!fNameEdit.getText().toString().equals(searchStr[1]) || !lNameEdit.getText().toString().equals(searchStr[2]) || !passwordEdit.getText().toString().equals(searchStr[4])) {
 
+                // Update database information
+                BackgroundWorker backgroundWorker = new BackgroundWorker(this);
+                backgroundWorker.execute(type, fName, lName, username, password);
+            }
+
+            // Go Home
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finishAffinity();
+        }
     }
 
 }

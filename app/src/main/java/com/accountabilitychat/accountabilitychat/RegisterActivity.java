@@ -46,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
             alertDialog.setMessage("Username cannot contain spaces.");
             alertDialog.show();
         }
-        else if ((!passStr.matches(".*\\d.*") || !passStr.matches(".*[a-zA-Z].*")) && passStr.length() >= 8) {
+        else if ((!passStr.matches(".*\\d.*") || !passStr.matches(".*[a-zA-Z].*")) && (passStr.length() < 8)) {
             alertDialog.setMessage("Password must include numerical and alphabetical values and must be at least 8 characters long.");
             alertDialog.show();
         }

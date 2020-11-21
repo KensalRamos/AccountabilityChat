@@ -1,8 +1,7 @@
 <b>AccountabilityChat</b>
 A full-stack Android application.
 
-🤔 - A messaging Android application. This application promotes holding your friends accountable and determined into achieving their goals. Kind of like WhatsApp but directed towards a more productice purpose.
-
+🤔 - A messaging Android application. This application promotes holding your friends accountable and determined into achieving their goals. 
 📋 - Let's get technical!
 
 <b>Stacks:</b>

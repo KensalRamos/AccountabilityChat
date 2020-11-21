@@ -159,6 +159,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
                     result += line;
 
                 YourAccountActivity.searchResult = result;
+                System.out.println("Search result is: " + result);
                 bufferedReader.close();
                 inputStream.close();
                 httpURLConnection.disconnect();
@@ -285,7 +286,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
             alertDialog.show();*/
 
         if (logInAuth) {
-            Intent intent = new Intent(context, MainActivity.class);
+            Intent intent = new Intent(context, WelcomeActivity.class);
             context.startActivity(intent);
         }
 

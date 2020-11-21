@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        searchDatabase();
         displayContacts();
         //findUser();
     }
@@ -47,16 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void searchDatabase() {
-
-        String type = "search";
-        String username = BackgroundWorker.loggedUser;
-
-        // Search for database information
-        BackgroundWorker backgroundWorker = new BackgroundWorker(this);
-        backgroundWorker.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, type, username);
-    }
-
     private void displayContacts() {
 
         scrollLinearLayout = (LinearLayout) findViewById(R.id.scollLinearLayout);
@@ -64,73 +53,28 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog alertDialog = new android.app.AlertDialog.Builder(this).create();
         alertDialog.setTitle("Add User Error");
 
-        /*
-        if (BackgroundWorker.contacts == null)
-            BackgroundWorker.contacts = YourAccountActivity.searchResult.split(" ")[5].split(" ");
-        */
-        if (BackgroundWorker.contacts != null) {
 
-
-            for (int i = 0; i < BackgroundWorker.contacts.length; i++) {
-                System.out.println("Contacts at index " + i + " is " + BackgroundWorker.contacts[i]);
-                usernameAdded = new TextView(this);
-                usernameAdded.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                usernameAdded.setText(BackgroundWorker.contacts[i]);
-                scrollLinearLayout.addView(usernameAdded);
-                scrollLayout.invalidate();
-                scrollLayout.requestLayout();
-            }
-
+        // search guest kensal ramos 12345678 kj11 mbarnett
+        if (BackgroundWorker.contacts == null) {
+            String[] temp = new String[YourAccountActivity.searchResult.split(" ").length - 5];
+            String[] searchResultArr = YourAccountActivity.searchResult.split(" ");
+            System.out.println("temp length is " + temp.length);
+            //BackgroundWorker.contacts = new String[YourAccountActivity.searchResult.split(" ").length - 4];
+            for (int i = 0; i < temp.length; i++)
+                temp[i] = searchResultArr[5 + i];
+            BackgroundWorker.contacts = temp;
         }
-        else {
-            // Do nothing.
+
+        for (int i = 0; i < BackgroundWorker.contacts.length; i++) {
+            System.out.println("Contacts at index " + i + " is " + BackgroundWorker.contacts[i]);
+            usernameAdded = new TextView(this);
+            usernameAdded.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            usernameAdded.setText(BackgroundWorker.contacts[i]);
+            scrollLinearLayout.addView(usernameAdded);
+            scrollLayout.invalidate();
+            scrollLayout.requestLayout();
         }
 
     }
-
-/*
-    private void findUser() {
-
-        scrollLinearLayout = (LinearLayout) findViewById(R.id.scollLinearLayout);
-        scrollLayout = (ScrollView) findViewById(R.id.mainScrollView);
-        AlertDialog alertDialog = new android.app.AlertDialog.Builder(this).create();
-        alertDialog.setTitle("Add User Error");
-
-
-        if (addUserSearchResult == null || addUserSearchResult.isEmpty()) {
-
-        }
-        else {
-            System.out.println("MAIN - addUserSearchResult = " + addUserSearchResult);
-            if (addUserSearchResult.split(" ")[0].equals("search")) {
-
-                System.out.println("POST IF");
-
-                    We need to create an array of "contacts" for each row in user_data. Then, every
-                    time MainActivity.java is opened, we read this list and add values to our
-                    scrollLinearLayout in scrollLayout
-
-                    Instead of an array, we will store usernames separated by a space.
-                    Ex: kj11 guest mbarnett
-
-
-
-                usernameAdded = new TextView(this);
-                usernameAdded.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                usernameAdded.setText(addUserSearchResult.split(" ")[3]);
-                scrollLinearLayout.addView(usernameAdded);
-                scrollLayout.invalidate();
-                scrollLayout.requestLayout();
-                System.out.println("POST ADD!!!");
-
-            }
-            else {
-                alertDialog.setMessage("Username not found! Please try another username.");
-                alertDialog.show();
-            }
-            addUserSearchResult = "";
-        }
-
-    }*/
 
 }

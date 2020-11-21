@@ -9,6 +9,9 @@
     <string name="username_hint">Username</string>
     <string name="password_hint">Password</string>
 
+    // Welcome Activity
+    <string name="what_is_question">What is AccountabilityChat?</string>
+
     // Register Activity
     <string name="register_title">Registration</string>
     <string name="first_name">First name</string>

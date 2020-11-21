@@ -34,4 +34,13 @@
     <string name="return_btn_title">Update Information</string>
     <string name="update_btn_title">Update</string>
 
+    // Chat Activity
+    <string name="chatting_with_string">Chatting with kj11</string> // Replace kj11 with %1$s
+    <string name="sender_username">mbarnett</string> // Actual string: %1$s
+    <string name="receiver_username">kj11</string>
+    <string name="message_prompt">Send a message</string>
+    <string name="send_message_btn">Send message</string>
+    <string name="home_btn">Home</string>
+
+
 </resources>

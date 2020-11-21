@@ -22,6 +22,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
     AlertDialog alertDialog;
     Boolean logInAuth = false;
     static String loggedUser;
+    static String[] contacts;
 
     BackgroundWorker(Context contextIn) {
         context = contextIn;
@@ -35,6 +36,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
         String register_url = "http://kensalramos.com/register.php";
         String search_url = "http://kensalramos.com/search.php";
         String update_url = "http://kensalramos.com/update.php";
+        String update_contacts_url = "http://kensalramos.com/updateContacts.php";
 
 
         if (type.equals("login")) {
@@ -131,7 +133,6 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
 
             YourAccountActivity.searchResult = "";
             String username = params[1];
-            System.out.println("Search initiated!!!!!!!");
 
             try {
                 URL url = new URL(search_url);
@@ -215,6 +216,56 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
             }
         }
+        else if (type.equals("update contacts")) {
+
+            String username = params[1];
+            String contactToAdd = params[2];
+
+            try {
+                URL url = new URL(update_contacts_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String postData = URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8") + "&"
+                        + URLEncoder.encode("contact", "UTF-8") + "=" + URLEncoder.encode(contactToAdd, "UTF-8");
+
+                bufferedWriter.write(postData);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                String result = "";
+                String line = "";
+
+                while ((line = bufferedReader.readLine()) != null)
+                    result += line;
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                // Update list of contacts
+                System.out.println("Result after updating contacts: " + result);
+                if (result.charAt(0) == ' ')
+                    result = result.substring(1, result.length());
+                if (!result.split(" ")[0].equals("Error"))
+                    contacts = result.split(" ");
+                System.out.println("Result after updating contacts: " + result);
+                return result;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
         return null;
     }
 
@@ -227,15 +278,16 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
+        alertDialog.hide();
         alertDialog.setMessage(result);
-        if (result.equals("Login unsuccessful."))
-            alertDialog.show();
+        alertDialog.show();
+        /*if (result.equals("Login unsuccessful."))
+            alertDialog.show();*/
 
         if (logInAuth) {
             Intent intent = new Intent(context, MainActivity.class);
             context.startActivity(intent);
         }
-
 
     }
 

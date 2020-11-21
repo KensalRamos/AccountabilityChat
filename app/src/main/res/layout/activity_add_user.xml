@@ -13,7 +13,7 @@
         android:layout_marginTop="100dp"
         android:background="@color/colorAccent"
         android:fontFamily="@font/open_sans_light"
-        android:onClick="OnLogin"
+        android:onClick="AddUserOnClick"
         android:text="@string/add_user_title"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +48,7 @@
         app:layout_constraintTop_toTopOf="@+id/mainTopBanner2" />
 
     <TextView
-        android:id="@+id/title4"
+        android:id="@+id/chatWithTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
@@ -75,10 +75,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title4" />
+        app:layout_constraintTop_toBottomOf="@+id/chatWithTitle" />
 
     <TextView
-        android:id="@+id/title5"
+        android:id="@+id/sendFstMsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
@@ -105,6 +105,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title5" />
+        app:layout_constraintTop_toBottomOf="@+id/sendFstMsg" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

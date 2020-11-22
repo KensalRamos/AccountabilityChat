@@ -61,10 +61,6 @@ public class AddUserActivity extends AppCompatActivity {
             backgroundWorker.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, type, username, contactToAdd);
 
             // If successful
-            System.out.println("PRE IF");
-            Intent intent = new Intent(this, ChatActivity.class);
-            startActivity(intent);
-            finishAffinity();
 
         }
 

@@ -21,6 +21,8 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
     Context context;
     AlertDialog alertDialog;
     Boolean logInAuth = false;
+    Boolean contactsFlag = false;
+    Boolean addUserFlag = false;
     static String loggedUser;
     static String[] contacts;
 
@@ -221,6 +223,8 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
 
             String username = params[1];
             String contactToAdd = params[2];
+            addUserFlag = false;
+            contactsFlag = true;
 
             try {
                 URL url = new URL(update_contacts_url);
@@ -247,17 +251,20 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
                 while ((line = bufferedReader.readLine()) != null)
                     result += line;
 
+                // Update list of contacts
+                System.out.println("Result after updating contacts: " + result);
+                if (result.charAt(0) == ' ')
+                    result = result.substring(1);
+                if (!result.split(" ")[0].equals("Error")) {
+                    contacts = result.split(" ");
+                    addUserFlag = true;
+                }
+                System.out.println("Result after updating contacts: " + result);
+
                 bufferedReader.close();
                 inputStream.close();
                 httpURLConnection.disconnect();
 
-                // Update list of contacts
-                System.out.println("Result after updating contacts: " + result);
-                if (result.charAt(0) == ' ')
-                    result = result.substring(1, result.length());
-                if (!result.split(" ")[0].equals("Error"))
-                    contacts = result.split(" ");
-                System.out.println("Result after updating contacts: " + result);
                 return result;
 
             } catch (MalformedURLException e) {
@@ -281,13 +288,21 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         alertDialog.hide();
         alertDialog.setMessage(result);
-        alertDialog.show();
-        /*if (result.equals("Login unsuccessful."))
-            alertDialog.show();*/
 
         if (logInAuth) {
             Intent intent = new Intent(context, WelcomeActivity.class);
             context.startActivity(intent);
+        }
+
+        if (contactsFlag) {
+            Intent intent;
+            if (addUserFlag)
+                intent = new Intent(context, ChatActivity.class);
+            else
+                intent = new Intent(context, MainActivity.class);
+
+            context.startActivity(intent);
+            //finishAffinity();
         }
 
     }

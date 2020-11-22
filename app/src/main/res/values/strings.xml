@@ -11,6 +11,11 @@
 
     // Welcome Activity
     <string name="what_is_question">What is AccountabilityChat?</string>
+    <string name="description_AC">AccountabilityChat is a chatting application that promotes holding
+        your friends accountable and determined into achieving their goals.</string>
+    <string name="instructions">Instructions</string>
+    <string name="instructions_desc">To chat with another user, you will need their username. Given
+    their username, the app will let you chat with that user and motivate them.</string>
 
     // Register Activity
     <string name="register_title">Registration</string>

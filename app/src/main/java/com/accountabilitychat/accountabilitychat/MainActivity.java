@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         displayContacts();
-        //findUser();
+        fetchUserInfo();
     }
 
     /*
@@ -44,6 +44,16 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AddUserActivity.class);
         startActivity(intent);
 
+    }
+
+    private void fetchUserInfo() {
+
+        String type = "search";
+        String username = BackgroundWorker.loggedUser;
+
+        // Search for database information
+        BackgroundWorker backgroundWorker = new BackgroundWorker(this);
+        backgroundWorker.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, type, username);
     }
 
     private void displayContacts() {

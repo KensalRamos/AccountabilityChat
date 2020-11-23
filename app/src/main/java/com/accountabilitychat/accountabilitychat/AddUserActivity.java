@@ -6,16 +6,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class AddUserActivity extends AppCompatActivity {
 
     AlertDialog alertDialog;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +26,7 @@ public class AddUserActivity extends AppCompatActivity {
         EditText msgEdit = (EditText) findViewById(R.id.firstMessageInput);
         alertDialog = new android.app.AlertDialog.Builder(this).create();
         alertDialog.setTitle("Add User Error");
+        Boolean dupContactFlag = false; // If true contactToAdd already exists
 
         // BackgroundWorker variables
         String type = "update contacts";
@@ -56,11 +52,28 @@ public class AddUserActivity extends AppCompatActivity {
         }
         // BackgroundWorker takes over
         else {
-            BackgroundWorker backgroundWorker = new BackgroundWorker(this);
-            //backgroundWorker.execute(type, username);
-            backgroundWorker.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, type, username, contactToAdd);
 
-            // If successful
+            if (BackgroundWorker.contacts != null) {
+
+                for (int i = 0; i < BackgroundWorker.contacts.length; i++) {
+
+                    if (BackgroundWorker.contacts[i].equals(contactToAdd)) {
+                        dupContactFlag = true;
+                        break;
+                    }
+
+                }
+            }
+
+            if (!dupContactFlag) {
+                BackgroundWorker backgroundWorker = new BackgroundWorker(this);
+                backgroundWorker.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, type, username, contactToAdd);
+            }
+            else {
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                finishAffinity();
+            }
 
         }
 

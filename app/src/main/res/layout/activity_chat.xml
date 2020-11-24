@@ -86,8 +86,10 @@
         android:onClick="returnHome"
         android:text="@string/home_btn"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/mainTopBanner4"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/mainTopBanner4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/mainTopBanner4"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:id="@+id/scrollView2"

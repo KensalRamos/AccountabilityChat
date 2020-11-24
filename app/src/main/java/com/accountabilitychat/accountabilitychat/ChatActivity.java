@@ -1,11 +1,14 @@
 package com.accountabilitychat.accountabilitychat;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.w3c.dom.Text;
 
 public class ChatActivity  extends AppCompatActivity {
 
@@ -35,6 +38,17 @@ public class ChatActivity  extends AppCompatActivity {
 
     // TO:DO
     public void sendMessage(View view) {
-        System.out.println("Sending message...");
+
+        // Init
+        String type = "send chat";
+        EditText msgEditTxt = (EditText) findViewById(R.id.messageInput);
+        String message = msgEditTxt.getText().toString();
+        String sender = YourAccountActivity.searchResult.split(" ")[3];
+        String receiver = contact;
+        msgEditTxt.setText("");
+
+        // Database connection
+        BackgroundWorker backgroundWorker = new BackgroundWorker(this);
+        backgroundWorker.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, type, message, sender, receiver);
     }
 }

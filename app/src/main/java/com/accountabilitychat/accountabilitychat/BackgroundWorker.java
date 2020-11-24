@@ -39,6 +39,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
         String search_url = "http://kensalramos.com/search.php";
         String update_url = "http://kensalramos.com/update.php";
         String update_contacts_url = "http://kensalramos.com/updateContacts.php";
+        String send_chat_url = "http://kensalramos.com/sendChat.php";
 
 
         if (type.equals("login")) {
@@ -274,6 +275,108 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
             }
 
         }
+        else if (type.equals("send chat")) {
+
+            System.out.println("Sending chat...");
+            String message = params[1];
+            String sender = params[2];
+            String receiver = params[3];
+
+
+            try {
+                URL url = new URL(send_chat_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String postData = URLEncoder.encode("message", "UTF-8") + "=" + URLEncoder.encode(message, "UTF-8") + "&"
+                        + URLEncoder.encode("sender", "UTF-8") + "=" + URLEncoder.encode(sender, "UTF-8") + "&"
+                        + URLEncoder.encode("receiver", "UTF-8") + "=" + URLEncoder.encode(receiver, "UTF-8");
+
+                bufferedWriter.write(postData);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                String result = "";
+                String line = "";
+
+                while ((line = bufferedReader.readLine()) != null)
+                    result += line;
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                return result;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        /*
+        else if (type.equals("read chat")) {
+
+            String username = params[1];
+            String contact = params[2];
+
+            try {
+                URL url = new URL(update_contacts_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                String postData = URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8") + "&"
+                        + URLEncoder.encode("contact", "UTF-8") + "=" + URLEncoder.encode(contactToAdd, "UTF-8");
+
+                bufferedWriter.write(postData);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+                String result = "";
+                String line = "";
+
+                while ((line = bufferedReader.readLine()) != null)
+                    result += line;
+
+                // Update list of contacts
+                System.out.println("Result after updating contacts: " + result);
+                if (result.charAt(0) == ' ')
+                    result = result.substring(1);
+                if (!result.split(" ")[0].equals("Error")) {
+                    contacts = result.split(" ");
+                    addUserFlag = true;
+                }
+                System.out.println("Result after updating contacts: " + result);
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                return result;
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+         */
         return null;
     }
 

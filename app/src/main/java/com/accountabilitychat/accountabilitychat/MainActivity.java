@@ -1,8 +1,11 @@
 package com.accountabilitychat.accountabilitychat;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -63,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog alertDialog = new android.app.AlertDialog.Builder(this).create();
         alertDialog.setTitle("Add User Error");
 
-
         // search guest kensal ramos 12345678 kj11 mbarnett
         if (BackgroundWorker.contacts == null) {
             String[] temp = new String[YourAccountActivity.searchResult.split(" ").length - 5];
@@ -80,11 +82,35 @@ public class MainActivity extends AppCompatActivity {
             usernameAdded = new TextView(this);
             usernameAdded.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             usernameAdded.setText(BackgroundWorker.contacts[i]);
+            usernameAdded.setTextColor(Color.BLACK);
+            usernameAdded.setTextSize(22);
+            // Change font family - TO:DO
+            // Alter bottom margins - TO:DO
+            usernameAdded.setClickable(true);
+            usernameAdded.setTag(Integer.toString(i));
+            // On click action
+            usernameAdded.setOnClickListener(contactOnClick());
             scrollLinearLayout.addView(usernameAdded);
             scrollLayout.invalidate();
             scrollLayout.requestLayout();
         }
 
     }
+    private View.OnClickListener contactOnClick()
+    {
+        return new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                // Get contact
+                Integer position = Integer.parseInt((v.getTag().toString()));
 
+                ChatActivity.contact = BackgroundWorker.contacts[position];
+
+                Intent intent = new Intent(v.getContext(), ChatActivity.class);
+                startActivity(intent);
+            }
+        };
+    }
 }

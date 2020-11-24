@@ -296,8 +296,10 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
 
         if (contactsFlag) {
             Intent intent;
-            if (addUserFlag)
+            if (addUserFlag) {
+                ChatActivity.contact = contacts[contacts.length - 1];
                 intent = new Intent(context, ChatActivity.class);
+            }
             else
                 intent = new Intent(context, MainActivity.class);
 

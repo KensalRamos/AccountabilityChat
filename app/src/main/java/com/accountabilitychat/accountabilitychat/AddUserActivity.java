@@ -53,6 +53,7 @@ public class AddUserActivity extends AppCompatActivity {
         // BackgroundWorker takes over
         else {
 
+            // Check for duplicates
             if (BackgroundWorker.contacts != null) {
 
                 for (int i = 0; i < BackgroundWorker.contacts.length; i++) {
@@ -69,6 +70,7 @@ public class AddUserActivity extends AppCompatActivity {
                 BackgroundWorker backgroundWorker = new BackgroundWorker(this);
                 backgroundWorker.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, type, username, contactToAdd);
             }
+            // If duplicates exist, just go to MainActivity.
             else {
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);

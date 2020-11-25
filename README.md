@@ -12,9 +12,9 @@ A full-stack Android application.
 3) Login.php - Handles user login and reading from database.  
 4) UpdateContacts.php - Updates the user's list of contacts. If they already contain this contact, do nothing.  
 5) Search.php - Search for the logged in user's information. 
-.
-.
-.
+.  
+.  
+.  
 
 - <b>Internal Structure:</b> Organized object-oriented programming in Java. Consistent programming conventions.
 

@@ -3,15 +3,7 @@ package com.accountabilitychat.accountabilitychat;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -24,10 +16,28 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-
-import static android.os.Process.THREAD_PRIORITY_BACKGROUND;
-import static android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE;
 import static android.os.Process.setThreadPriority;
+
+/*
+ *
+ * File name: BackgroundWorker.java
+ *
+ * Contributor(s): Kensal Ramos
+ *
+ * Description: This file handles all database connections as an AsyncTask. When a new BackgroundWorker
+ * object is created and executed, a type must be given. Depending on the type, the BackgroundWorker
+ * may write and/or read from/to the database.
+ * Valid types are:
+ * login
+ * register
+ * search
+ * update
+ * update contacts
+ * send chat
+ * update chat
+ *
+ *
+ */
 
 public class BackgroundWorker extends AsyncTask<String, Void, String> {
 

@@ -7,6 +7,18 @@ import android.view.View;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
+/*
+ *
+ * File name: RegisterActivity.java
+ *
+ * Contributor(s): Kensal Ramos
+ *
+ * Description: The register activity. Here, the user may fill in the required fields to create
+ * an account. All valid information is saved to remote database for future usage.
+ *
+ *
+ */
+
 public class RegisterActivity extends AppCompatActivity {
 
     EditText firstName, lastName, username, password;
@@ -27,6 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    // Initiates when register button is clicked.
     public void onReg(View view) {
 
         alertDialog = new android.app.AlertDialog.Builder(this).create();

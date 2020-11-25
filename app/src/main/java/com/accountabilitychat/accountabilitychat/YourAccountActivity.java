@@ -9,6 +9,19 @@ import android.widget.TextView;
 import android.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+/*
+ *
+ * File name: YourAccountActivity.java
+ *
+ * Contributor(s): Kensal Ramos
+ *
+ * Description: In this activity, the user may update their information. When the user hits
+ * the update button, their username is used to retrieve their row and then their information is
+ * updated.
+ *
+ *
+ */
+
 public class YourAccountActivity extends AppCompatActivity {
 
     static String searchResult;

@@ -6,10 +6,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+/*
+ *
+ * File name: LogInActivity.java
+ *
+ * Contributor(s): Kensal Ramos
+ *
+ * Description: The log in activity. This is the first activity that a user sees.
+ *
+ *
+ */
 public class LogInActivity extends AppCompatActivity {
 
     EditText usernameEt, passwordEt;
-    String currentUser, currentfName, currentlName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +46,6 @@ public class LogInActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
 
-    }
-
-    public void ToMainActivity(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
     }
 
 }

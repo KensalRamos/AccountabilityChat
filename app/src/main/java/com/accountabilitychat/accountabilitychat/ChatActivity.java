@@ -2,7 +2,6 @@ package com.accountabilitychat.accountabilitychat;
 
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,9 +11,20 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
+
+/*
+ *
+ * File name: ChatActivity.java
+ *
+ * Contributor(s): Kensal Ramos
+ *
+ * Description: In this activity, the user may chat with a desired contact. The chat log is auto
+ * updated every second or every message send.
+ *
+ *
+ */
 
 public class ChatActivity  extends AppCompatActivity {
 

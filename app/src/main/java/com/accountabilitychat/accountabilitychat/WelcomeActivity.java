@@ -6,6 +6,18 @@ import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
+/*
+ *
+ * File name: WelcomeActivity.java
+ *
+ * Contributor(s): Kensal Ramos
+ *
+ * Description: This is a simple welcome screen displayed after a user logs in. This instructs the
+ * user on how to use the application.
+ *
+ *
+ */
+
 public class WelcomeActivity extends AppCompatActivity {
 
     @Override

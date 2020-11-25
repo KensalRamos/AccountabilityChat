@@ -4,10 +4,21 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
+
+/*
+ *
+ * File name: AddUserActivity.java
+ *
+ * Contributor(s): Kensal Ramos
+ *
+ * Description: In this activity, the logged in user may add another user to their contact list.
+ * When a contact is added, the user is taken straight to the chat room.
+ *
+ *
+ */
 
 public class AddUserActivity extends AppCompatActivity {
 

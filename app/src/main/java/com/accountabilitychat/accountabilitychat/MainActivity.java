@@ -2,16 +2,28 @@ package com.accountabilitychat.accountabilitychat;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+/*
+ *
+ * File name: MainActivity.java
+ *
+ * Contributor(s): Kensal Ramos
+ *
+ * Description: This is the main activity. In this activity, there is a scrollview that contains
+ * a linear layout listing the logged in user's contacts as TextViews. The user may click any of
+ * these contacts to begin chatting with them. Additionally, the user may: add a contact and update
+ * their information.
+ *
+ *
+ */
 
 public class MainActivity extends AppCompatActivity {
 

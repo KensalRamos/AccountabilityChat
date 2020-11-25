@@ -60,13 +60,13 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
 
         setThreadPriority(Thread.MAX_PRIORITY);
         String type = params[0];
-        String login_url = "http://kensalramos.com/login.php";
-        String register_url = "http://kensalramos.com/register.php";
-        String search_url = "http://kensalramos.com/search.php";
-        String update_url = "http://kensalramos.com/update.php";
-        String update_contacts_url = "http://kensalramos.com/updateContacts.php";
-        String send_chat_url = "http://kensalramos.com/sendChat.php";
-        String update_chat_url = "http://kensalramos.com/updateChat.php";
+        String login_url = "https://kensalramos.com/login.php";
+        String register_url = "https://kensalramos.com/register.php";
+        String search_url = "https://kensalramos.com/search.php";
+        String update_url = "https://kensalramos.com/update.php";
+        String update_contacts_url = "https://kensalramos.com/updateContacts.php";
+        String send_chat_url = "https://kensalramos.com/sendChat.php";
+        String update_chat_url = "https://kensalramos.com/updateChat.php";
 
 
         if (type.equals("login")) {

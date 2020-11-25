@@ -412,9 +412,6 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
         alertDialog.hide();
         alertDialog.setMessage(result);
 
-        if (result.contains("Error") && !chatFlag && !contactsFlag)
-            alertDialog.show();
-
         if (logInAuth) {
             Intent intent = new Intent(context, WelcomeActivity.class);
             context.startActivity(intent);

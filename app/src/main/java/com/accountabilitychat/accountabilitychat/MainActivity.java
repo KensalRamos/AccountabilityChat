@@ -30,11 +30,13 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout scrollLinearLayout;
     ScrollView scrollLayout;
     TextView usernameAdded;
+    static Boolean mainFlag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mainFlag = true;
         displayContacts();
         fetchUserInfo();
     }

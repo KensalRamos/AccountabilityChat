@@ -35,6 +35,7 @@ public class ChatActivity  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        MainActivity.mainFlag = false;
         updateText();
         try {
             updateChat();
@@ -56,7 +57,8 @@ public class ChatActivity  extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                handler.postDelayed(this, delay);
+                if (!MainActivity.mainFlag)
+                    handler.postDelayed(this, delay);
             }
         }, delay);
 
@@ -107,7 +109,8 @@ public class ChatActivity  extends AppCompatActivity {
 
         // Init
         String type = "update chat";
-        String sender = YourAccountActivity.searchResult.split(" ")[3];
+        TextView senderTV = (TextView) findViewById(R.id.recepTitleUsername);
+        String sender = senderTV.getText().toString();
         String receiver = contact;
         ArrayList<String> srArr = new ArrayList<String>();
         ArrayList<String> rsArr = new ArrayList<String>();

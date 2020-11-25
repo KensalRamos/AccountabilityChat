@@ -11,7 +11,9 @@ A full-stack Android application.
 2) Register.php - Handles user registration and writing to database.  
 3) Login.php - Handles user login and reading from database.  
 4) UpdateContacts.php - Updates the user's list of contacts. If they already contain this contact, do nothing.  
-5) Search.php - Search for the logged in user's information.  
+5) Search.php - Search for the logged in user's information. 
+6) ReadChat.php - Update chat log
+7) UpdateChat.php - Write to chat table with a sender and receiver
 
 - <b>Internal Structure:</b> Organized object-oriented programming in Java. Consistent programming conventions.
 

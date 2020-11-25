@@ -3,7 +3,15 @@ package com.accountabilitychat.accountabilitychat;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -15,6 +23,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+
+import static android.os.Process.THREAD_PRIORITY_BACKGROUND;
+import static android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE;
+import static android.os.Process.setThreadPriority;
 
 public class BackgroundWorker extends AsyncTask<String, Void, String> {
 
@@ -23,8 +36,10 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
     Boolean logInAuth = false;
     Boolean contactsFlag = false;
     Boolean addUserFlag = false;
+    Boolean chatFlag = false;
     static String loggedUser;
     static String[] contacts;
+    static ArrayList<String> chat_log = new ArrayList<String>();
 
     BackgroundWorker(Context contextIn) {
         context = contextIn;
@@ -33,6 +48,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
 
+        setThreadPriority(Thread.MAX_PRIORITY);
         String type = params[0];
         String login_url = "http://kensalramos.com/login.php";
         String register_url = "http://kensalramos.com/register.php";
@@ -40,6 +56,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
         String update_url = "http://kensalramos.com/update.php";
         String update_contacts_url = "http://kensalramos.com/updateContacts.php";
         String send_chat_url = "http://kensalramos.com/sendChat.php";
+        String update_chat_url = "http://kensalramos.com/updateChat.php";
 
 
         if (type.equals("login")) {
@@ -322,14 +339,16 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
             }
 
         }
-        /*
-        else if (type.equals("read chat")) {
 
-            String username = params[1];
-            String contact = params[2];
+        else if (type.equals("update chat")) {
+
+            String sender = params[1];
+            String receiver = params[2];
+            chat_log.clear();
+            chatFlag = true;
 
             try {
-                URL url = new URL(update_contacts_url);
+                URL url = new URL(update_chat_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
@@ -337,8 +356,8 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
                 OutputStream outputStream = httpURLConnection.getOutputStream();
 
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-                String postData = URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8") + "&"
-                        + URLEncoder.encode("contact", "UTF-8") + "=" + URLEncoder.encode(contactToAdd, "UTF-8");
+                String postData = URLEncoder.encode("sender", "UTF-8") + "=" + URLEncoder.encode(sender, "UTF-8") + "&"
+                        + URLEncoder.encode("receiver", "UTF-8") + "=" + URLEncoder.encode(receiver, "UTF-8");
 
                 bufferedWriter.write(postData);
                 bufferedWriter.flush();
@@ -350,18 +369,9 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
                 String result = "";
                 String line = "";
 
-                while ((line = bufferedReader.readLine()) != null)
+                while ((line = bufferedReader.readLine()) != null) {
                     result += line;
-
-                // Update list of contacts
-                System.out.println("Result after updating contacts: " + result);
-                if (result.charAt(0) == ' ')
-                    result = result.substring(1);
-                if (!result.split(" ")[0].equals("Error")) {
-                    contacts = result.split(" ");
-                    addUserFlag = true;
                 }
-                System.out.println("Result after updating contacts: " + result);
 
                 bufferedReader.close();
                 inputStream.close();
@@ -376,7 +386,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
             }
 
         }
-         */
+
         return null;
     }
 
@@ -391,6 +401,9 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         alertDialog.hide();
         alertDialog.setMessage(result);
+
+        if (result.contains("Error") && !chatFlag && !contactsFlag)
+            alertDialog.show();
 
         if (logInAuth) {
             Intent intent = new Intent(context, WelcomeActivity.class);

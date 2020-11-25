@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,7 +24,6 @@ public class AddUserActivity extends AppCompatActivity {
 
         // Init
         EditText usernameEdit = (EditText) findViewById(R.id.getUsernameInput);
-        EditText msgEdit = (EditText) findViewById(R.id.firstMessageInput);
         alertDialog = new android.app.AlertDialog.Builder(this).create();
         alertDialog.setTitle("Add User Error");
         Boolean dupContactFlag = false; // If true contactToAdd already exists
@@ -32,7 +32,6 @@ public class AddUserActivity extends AppCompatActivity {
         String type = "update contacts";
         String username = YourAccountActivity.searchResult.split(" ")[3];
         String contactToAdd = usernameEdit.getText().toString();
-        String message = msgEdit.getText().toString();
 
         if (contactToAdd.isEmpty()) {
             alertDialog.setMessage("Please enter a username.");
@@ -44,10 +43,6 @@ public class AddUserActivity extends AppCompatActivity {
         }
         else if (contactToAdd.equals(YourAccountActivity.searchResult.split(" ")[3])) {
             alertDialog.setMessage("You, unfortunately, cannot talk to yourself.");
-            alertDialog.show();
-        }
-        else if (message.isEmpty()) {
-            alertDialog.setMessage("Please enter a message. Perhaps try introducing yourself?");
             alertDialog.show();
         }
         // BackgroundWorker takes over
